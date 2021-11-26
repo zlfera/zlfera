@@ -4,6 +4,6 @@
   <main>
     <RouterView />
   </main>
-  <p></p>
+  <p>ok</p>
   <footer>底部</footer>
 </template>
