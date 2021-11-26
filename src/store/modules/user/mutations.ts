@@ -3,6 +3,6 @@ import { MutationsTypes } from "./mutationsTypes";
 
 export default {
     [MutationsTypes.setUser](state: IUserModuleTypes, payload: User): void {
-        state.profile = payload;
+        state.profile.account = payload.account;
     },
 };

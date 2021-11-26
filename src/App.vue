@@ -3,25 +3,21 @@
     <p>{{ profile.mobile }}</p>
     <p>{{ id }}</p>
     <p>{{ categoryId }}</p>
-    <input type="text" v-model="payload" @keydown="changeName" />
+
+    <button @click="setUser">zlfera</button>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </div>
   <router-view />
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
-import { userStore } from "./store";
-const payload = ref<number>();
-const store = userStore();
+import store from "./store";
 const profile = store.state.user.profile;
 const id = store.state.cart.list[0].id;
 const categoryId = store.state.category.list[0].id;
-// let mobile = computed(() => {
-//   return store.state.user.profile.mobile;
-// });
-const changeName = () => {
-  store.dispatch("user/setUser", payload.value);
+
+const setUser = () => {
+  store.dispatch("user/setUser", { account: "123" });
 };
 </script>
 <style lang="less">
