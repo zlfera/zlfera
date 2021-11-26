@@ -2,6 +2,7 @@
   <div id="nav">
     <p>{{ profile.mobile }}</p>
     <p>{{ id }}</p>
+    <p>{{ categoryId }}</p>
     <input type="text" v-model="payload" @keydown="changeName" />
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
@@ -15,6 +16,7 @@ const payload = ref<number>();
 const store = userStore();
 const profile = store.state.user.profile;
 const id = store.state.cart.list[0].id;
+const categoryId = store.state.category.list[0].id;
 // let mobile = computed(() => {
 //   return store.state.user.profile.mobile;
 // });
