@@ -1,9 +1,11 @@
 <template>
-  <nav>顶部通栏</nav>
+  <AppTopNav />
   <header>头部</header>
-  <main>
-    <RouterView />
-  </main>
+  <main></main>
   <p>ok</p>
   <footer>底部</footer>
 </template>
+<script setup lang="ts">
+import AppTopNav from "@/components/AppTopNav.vue";
+</script>
+<style lang="less"></style>
