@@ -1,3 +1,3 @@
 export enum MutationsTypes {
-    setUser = "setUser",
+  setUser = "setUser",
 }

@@ -1,6 +1,6 @@
 export type CategoryState = {
-    list: CategoryList[];
+  list: CategoryList[];
 };
 export type CategoryList = {
-    id: number;
+  id: number;
 };

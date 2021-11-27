@@ -5,8 +5,8 @@ import mutations from "./mutations";
 import state from "./state";
 import { CategoryState } from "./types";
 export const category: Module<CategoryState, IRootState> = {
-    namespaced: true,
-    state,
-    actions,
-    mutations,
+  namespaced: true,
+  state,
+  actions,
+  mutations,
 };

@@ -1,6 +1,6 @@
 export type CartState = {
-    list: CartList[];
+  list: CartList[];
 };
 export type CartList = {
-    id: number;
+  id: number;
 };

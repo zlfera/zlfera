@@ -1,11 +1,11 @@
 export type IUserModuleTypes = {
-    profile: User;
+  profile: User;
 };
 export type User = {
-    id: number;
-    avatar: string;
-    nickname: string;
-    account: string;
-    mobile: number;
-    token: string;
+  id: number;
+  avatar: string;
+  nickname: string;
+  account: string;
+  mobile: number;
+  token: string;
 };

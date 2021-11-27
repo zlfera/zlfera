@@ -7,9 +7,9 @@ import actions from "./actions";
 import mutations from "./mutations";
 
 const cart: Module<CartState, IRootState> = {
-    namespaced: true,
-    state,
-    actions,
-    mutations,
+  namespaced: true,
+  state,
+  actions,
+  mutations,
 };
 export default cart;

@@ -10,15 +10,15 @@ import createPersistedstate from "vuex-persistedstate";
 //     return baseUserStore<T>(key);
 // };
 export default createStore<IAllStateTypes>({
-    modules: {
-        user,
-        cart,
-        category,
-    },
-    plugins: [
-        createPersistedstate({
-            key: "zlfera-pc",
-            paths: ["user", "cart"],
-        }),
-    ],
+  modules: {
+    user,
+    cart,
+    category,
+  },
+  plugins: [
+    createPersistedstate({
+      key: "zlfera-pc",
+      paths: ["user", "cart"],
+    }),
+  ],
 });

@@ -1,5 +1,5 @@
 import { CategoryState } from "./types";
 
 export default <CategoryState>{
-    list: [{ id: 0 }],
+  list: [{ id: 0 }],
 };
