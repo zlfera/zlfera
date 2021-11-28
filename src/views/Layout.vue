@@ -1,11 +1,20 @@
 <template>
   <AppTopNav />
-  <header>头部</header>
-  <main></main>
-  <p>ok</p>
-  <footer>底部</footer>
+  <AppHeader />
+  <main class="app-body"></main>
+
+  <AppFooder />
 </template>
 <script setup lang="ts">
 import AppTopNav from "@/components/AppTopNav.vue";
+import AppHeader from "@/components/AppHeader.vue";
+import AppFooder from "@/components/AppFooder.vue";
+import { useStore } from "@/store";
+const store = useStore();
+store.dispatch("category/getList");
 </script>
-<style lang="less"></style>
+<style lang="less" scoped>
+.app-body {
+  min-height: 600px;
+}
+</style>

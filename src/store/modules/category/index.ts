@@ -4,9 +4,10 @@ import actions from "./actions";
 import mutations from "./mutations";
 import state from "./state";
 import { CategoryState } from "./types";
-export const category: Module<CategoryState, IRootState> = {
-  namespaced: true,
-  state,
-  actions,
-  mutations,
+const category: Module<CategoryState, IRootState> = {
+    namespaced: true,
+    state,
+    actions,
+    mutations,
 };
+export default category;
