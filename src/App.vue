@@ -5,10 +5,10 @@
 </template>
 <script setup lang="ts">
 import Layout from "@/views/Layout.vue";
-
+import { computed } from "vue";
 import store from "./store";
 
-const profile = store.state.user.profile;
+const profile = computed(() => store.state.user.profile);
 const setUser = () => {
   store.dispatch("user/setUser");
 };

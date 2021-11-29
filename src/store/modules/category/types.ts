@@ -4,6 +4,7 @@ export type CategoryState = {
 export type CategoryList = {
     name: string;
 } & {
+    open: boolean;
     id: string;
     picture: string;
     children: [

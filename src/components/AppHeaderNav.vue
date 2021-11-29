@@ -1,12 +1,17 @@
 <template>
   <ul class="app-header-nav">
     <li class="home"><RouterLink to="/">首页</RouterLink></li>
-    <li v-for="item in list" :key="item.id">
+    <li
+      v-for="item in list"
+      :key="item.id"
+      @mouseenter="show(item)"
+      @mouseleave="hide(item)"
+    >
       <RouterLink to="/">{{ item.name }}</RouterLink>
-      <div class="layer">
+      <div class="layer" :class="{ open: item.open }">
         <ul>
           <li v-for="sub in item.children" :key="sub.id">
-            <RouterLink to="/">
+            <RouterLink to="/category/sub/:id" @click="hide(item)">
               <img :src="sub.picture" alt="" />
               <p>{{ sub.name }}</p>
             </RouterLink>
@@ -18,12 +23,21 @@
 </template>
 <script lang="ts" setup>
 import { useStore } from "@/store";
+import { CategoryList } from "@/store/modules/category/types";
+import { computed } from "vue";
 
 const store = useStore();
-const list = store.state.category.list;
-// const list = computed(() => {
-//   return store.state.category.list;
-// });
+
+const list = computed(() => {
+  return store.state.category.list;
+});
+
+const show = (item: CategoryList) => {
+  store.commit("category/show", item);
+};
+const hide = (item: CategoryList) => {
+  store.commit("category/hide", item);
+};
 </script>
 <style scoped lang="less">
 .app-header-nav {
@@ -49,8 +63,10 @@ const list = store.state.category.list;
         border-bottom: 1px solid @xtxColor;
       }
       > .layer {
-        height: 132px;
-        opacity: 1;
+        &.open {
+          height: 132px;
+          opacity: 1;
+        }
       }
     }
   }

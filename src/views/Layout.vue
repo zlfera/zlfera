@@ -1,7 +1,10 @@
 <template>
   <AppTopNav />
   <AppHeader />
-  <main class="app-body"></main>
+  <AppHeaderSticky />
+  <main class="app-body">
+    <Home />
+  </main>
 
   <AppFooder />
 </template>
@@ -10,6 +13,8 @@ import AppTopNav from "@/components/AppTopNav.vue";
 import AppHeader from "@/components/AppHeader.vue";
 import AppFooder from "@/components/AppFooder.vue";
 import { useStore } from "@/store";
+import AppHeaderSticky from "@/components/AppHeaderSticky.vue";
+import Home from "./home/Index.vue";
 const store = useStore();
 store.dispatch("category/getList");
 </script>

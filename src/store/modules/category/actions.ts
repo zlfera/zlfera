@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 import { Commit } from "vuex";
 import { findAllCategory } from "./../../../api/category";
 
-import { CategoryState } from "./types";
+import { CategoryList, CategoryState } from "./types";
 type Icx = {
     commit: Commit;
     state: CategoryState;
@@ -17,10 +17,9 @@ export default {
             msg: string;
             result: [];
         };
-        result.forEach((item: { open: boolean }) => {
+        result.forEach((item: CategoryList) => {
             item.open = false;
         });
-        console.log(result);
 
         commit("setList", result);
     },
