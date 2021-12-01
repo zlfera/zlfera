@@ -14,7 +14,7 @@ import AppHeader from "@/components/AppHeader.vue";
 import AppFooder from "@/components/AppFooder.vue";
 import { useStore } from "@/store";
 import AppHeaderSticky from "@/components/AppHeaderSticky.vue";
-import Home from "./home/Index.vue";
+import Home from "./home/Home.vue";
 const store = useStore();
 store.dispatch("category/getList");
 </script>

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 //import Home from "../views/Home.vue";
 const Layout = () => import("@/views/Layout.vue");
-const Home = () => import("@/views/home/Index.vue");
+const Home = () => import("@/views/home/Home.vue");
 const Category = () => import("@/views/category/Index.vue");
 const Sub = () => import("@/views/category/Sub.vue");
 const routes: Array<RouteRecordRaw> = [

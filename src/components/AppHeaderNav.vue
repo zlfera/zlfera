@@ -1,6 +1,8 @@
 <template>
   <ul class="app-header-nav">
-    <li class="home"><RouterLink to="/">首页</RouterLink></li>
+    <li class="home">
+      <RouterLink to="/">首页</RouterLink>
+    </li>
     <li
       v-for="item in list"
       :key="item.id"
@@ -11,8 +13,8 @@
       <div class="layer" :class="{ open: item.open }">
         <ul>
           <li v-for="sub in item.children" :key="sub.id">
-            <RouterLink to="/category/sub/:id" @click="hide(item)">
-              <img :src="sub.picture" alt="" />
+            <RouterLink :to="`/category/sub/${sub.id}`" @click="hide(item)">
+              <img :src="sub.picture" />
               <p>{{ sub.name }}</p>
             </RouterLink>
           </li>

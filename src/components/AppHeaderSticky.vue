@@ -11,6 +11,7 @@
   </div>
 </template>
 <script lang="ts" setup>
+import AppHeaderNav from "./AppHeader.vue";
 import { useWindowScroll } from "@vueuse/core";
 const { y } = useWindowScroll();
 // const y = ref<number>(0);

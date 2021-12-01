@@ -34,11 +34,7 @@ instance.interceptors.response.use(
         return Promise.reject(err);
     }
 );
-export default (
-    url: string,
-    method: Method,
-    submit_date?: Record<string, unknown>
-) => {
+export default (url: string, method: Method, submit_date?: unknown) => {
     return instance({
         url,
         method,

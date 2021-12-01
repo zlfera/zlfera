@@ -6,4 +6,5 @@ import store from "./store";
 import "normalize.css";
 import "@/assets/styles/common.less";
 import { key } from "./store/index";
-createApp(App).use(store, key).use(router).mount("#app");
+import ui from "./components/librarys";
+createApp(App).use(store, key).use(router).use(ui).mount("#app");
