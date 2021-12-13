@@ -53,7 +53,11 @@
       <ul
         v-if="currentCategory && currentCategory.brands && currentCategory.brands.length"
       >
-        <li class="brand" v-for="item in currentCategory.brands as any" :key="item.id">
+        <li
+          class="brand"
+          v-for="item in currentCategory.brands as Array<{ id: string, picture: string, place: string, name: string, desc: string }>"
+          :key="item.id"
+        >
           <RouterLink to="/">
             <img :src="item.picture" />
             <div class="info">
@@ -181,11 +185,7 @@ const currentCategory = (computed(() => {
     }
   }
 }
-&:hover {
-  .layer {
-    display: block;
-  }
-}
+
 .home-category {
   width: 250px;
   height: 500px;
@@ -208,6 +208,11 @@ const currentCategory = (computed(() => {
           font-size: 16px;
         }
       }
+    }
+  }
+  &:hover {
+    .layer {
+      display: block;
     }
   }
 }

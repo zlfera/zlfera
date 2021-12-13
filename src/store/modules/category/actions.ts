@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import { Commit } from "vuex";
 import { findAllCategory } from "./../../../api/category";
 
@@ -7,10 +6,7 @@ type Icx = {
     commit: Commit;
     state: CategoryState;
 };
-type d = {
-    msg: string;
-    result: string;
-};
+
 export default {
     async getList({ commit }: Icx) {
         const { result } = (await findAllCategory()) as unknown as {
