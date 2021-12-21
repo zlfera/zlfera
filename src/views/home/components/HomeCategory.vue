@@ -17,7 +17,7 @@
             >{{ sub.name }}</RouterLink
           >
         </template>
-        <template v-else>
+        <span v-else>
           <XtxSkeleton
             width="60px"
             height="18px"
@@ -25,7 +25,7 @@
             bg="rgba(255,255,255,0.2)"
           />
           <XtxSkeleton width="50px" height="18px" bg="rgba(255,255,255,0.2)" />
-        </template>
+        </span>
       </li>
     </ul>
     <!-- 弹层 -->
@@ -213,6 +213,17 @@ const currentCategory = (computed(() => {
   &:hover {
     .layer {
       display: block;
+    }
+  }
+  .xtx-skeleton {
+    animation: fade 1s linear infinite alternate;
+  }
+  @keyframes fade {
+    from {
+      opacity: 0.2;
+    }
+    to {
+      opacity: 1;
     }
   }
 }

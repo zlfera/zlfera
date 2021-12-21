@@ -30,7 +30,7 @@ defineProps(
 </script>
 <style scoped lang="less">
 .xtx-skeleton {
-  border: chocolate solid 2px;
+  //border: rgb(221, 160, 117) solid 2px;
   display: inline-block;
   position: relative;
   overflow: hidden;
@@ -64,17 +64,6 @@ defineProps(
   }
   100% {
     left: 120%;
-  }
-}
-.xtx-skeleton {
-  animation: fade 1s linear infinite alternate;
-}
-@keyframes fade {
-  from {
-    opacity: 0.2;
-  }
-  to {
-    opacity: 1;
   }
 }
 </style>
