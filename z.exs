@@ -1,18 +1,21 @@
-defmodule Debugger do
-  defmacro log(expression) do
-    if Application.get_env(:debugger, :log_lever) == :debug do
-      quote do
-        IO.puts("==============")
-        IO.inspect(unquote(expression))
-        IO.puts("==============")
-        unquote(expression)
-      end
-    else
-      expression
+defmodule Math do
+  defmacro say({:+, _, [lhs, rhs]}) do
+    quote do
+      lhs = unquote(lhs)
+      rhs = unquote(rhs)
+      result = lhs + rhs
+      # IO.puts("#{lhs} plus #{rhs} is #{result}")
+      # result
     end
   end
-end
 
-defmodule Test do
-  import Assertion
+  defmacro say({:*, _, [lhs, rhs]}) do
+    quote do
+      lhs = unquote(lhs)
+      rhs = unquote(rhs)
+      result = lhs + rhs
+      IO.puts("#{lhs} times #{rhs} is #{reslut}")
+      result
+    end
+  end
 end
