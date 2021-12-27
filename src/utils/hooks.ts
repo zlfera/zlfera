@@ -1,7 +1,7 @@
 import { useIntersectionObserver } from "@vueuse/core";
 import { Ref, ref } from "vue";
 
-export function useLazyData(fn: Function, goods: Ref<{}[]>) {
+export function useLazyData(fn: Function) {
     const target = ref(null);
 
     const { stop } = useIntersectionObserver(
@@ -9,7 +9,7 @@ export function useLazyData(fn: Function, goods: Ref<{}[]>) {
         ([{ isIntersecting }], _observerElement) => {
             if (isIntersecting) {
                 stop();
-                fn(goods);
+                fn();
             }
         }
     );

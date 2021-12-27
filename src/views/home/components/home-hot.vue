@@ -22,7 +22,7 @@ import HomePanel from "./HomePanel.vue";
 import HomeSkeleton from "./home-skeleton.vue";
 const goods = ref<{ id: string; picture: string; title: string; alt: string }[]>([]);
 //findHot(goods);
-const target = useLazyData(findHot, goods)
+const target = useLazyData(() => findHot(goods))
 </script>
 <style lang="less" scoped>
 .goods-list {

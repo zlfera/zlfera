@@ -7,6 +7,7 @@
         <HomeBanner />
         <HomeNew />
         <HomeHot />
+        <HomeBrand />
       </div>
     </div>
   </div>
@@ -16,5 +17,6 @@ import HomeCategory from "./components/HomeCategory.vue";
 import HomeBanner from "./components/home-banner.vue";
 import HomeNew from "./components/HomeNew.vue";
 import HomeHot from "./components/home-hot.vue";
+import HomeBrand from "./components/home-brand.vue";
 </script>
 <style scoped lang="less"></style>

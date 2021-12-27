@@ -37,7 +37,7 @@ const goods = ref<
   }[]
 >([]);
 //findNew(goods);
-const target = useLazyData(findNew, goods)
+const target = useLazyData(() => findNew(goods))
 
 
 </script>

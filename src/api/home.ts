@@ -4,7 +4,12 @@ import { Ref } from "vue";
 export const findBrand = (limit: number) => {
     return request("/home/brand", "get", { limit });
 };
-
+export async function findBrands(limit: number, goods: Ref<{}[]>) {
+    const data = (await request("/home/brand", "get", {
+        limit,
+    })) as unknown as { result: [] };
+    goods.value = data.result;
+}
 export async function findBanner(sliders: Ref<[]>) {
     const data = (await request("/home/banner", "get")) as unknown as {
         result: [];
@@ -24,3 +29,9 @@ export async function findHot(goods: Ref<{}[]>) {
     };
     goods.value = data.result;
 }
+// export async function findProduct(goods: Ref<{}[]>) {
+//     const data = (await request("/home/product", "get")) as unknown as {
+//         result: [];
+//     };
+//     goods.value = data.result;
+// }
