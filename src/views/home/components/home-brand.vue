@@ -8,7 +8,7 @@
             <ul class="list">
                 <li v-for="item in goods" :key="item.id">
                     <RouterLink to="/">
-                        <img src="item.picture" />
+                        <img :src="item.picture" :alt="item.name" />
                     </RouterLink>
                 </li>
             </ul>
@@ -21,7 +21,7 @@ import { findBrands } from '@/api/home';
 import { useLazyData } from '@/utils/hooks';
 import { ref } from 'vue';
 import HomePanel from './HomePanel.vue';
-const goods = ref<{ id: string, picture: string }[]>([])
+const goods = ref<{ id: string, picture: string, name: string }[]>([])
 const target = useLazyData(() => findBrands(10, goods))
 </script>
 
