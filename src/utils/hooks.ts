@@ -6,12 +6,16 @@ export function useLazyData(fn: Function) {
 
     const { stop } = useIntersectionObserver(
         target,
-        ([{ isIntersecting }], _observerElement) => {
+        (
+            [{ isIntersecting }]: IntersectionObserverEntry[],
+            _observerElement: IntersectionObserver
+        ) => {
             if (isIntersecting) {
                 stop();
                 fn();
             }
-        }
+        },
+        { threshold: 0 }
     );
     return target;
 }

@@ -8,6 +8,8 @@
         <HomeNew />
         <HomeHot />
         <HomeBrand />
+        <HomeProduct />
+        <HomeSpecial />
       </div>
     </div>
   </div>
@@ -18,5 +20,8 @@ import HomeBanner from "./components/home-banner.vue";
 import HomeNew from "./components/HomeNew.vue";
 import HomeHot from "./components/home-hot.vue";
 import HomeBrand from "./components/home-brand.vue";
+
+import HomeProduct from "./components/home-product.vue";
+import HomeSpecial from "./components/home-special.vue";
 </script>
 <style scoped lang="less"></style>

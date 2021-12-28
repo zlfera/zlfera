@@ -4,7 +4,7 @@
       <ul ref="target" class="goods-list" v-if="goods.length">
         <li v-for="item in goods" :key="item.id">
           <RouterLink to="/">
-            <img :src="item.picture" />
+            <img v-lazyload="item.picture" />
             <p class="name">{{ item.title }}</p>
             <p class="desc">{{ item.alt }}</p>
           </RouterLink>
