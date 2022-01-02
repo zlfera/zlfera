@@ -4,7 +4,7 @@
             <img v-lazyload="goods.picture" />
         </RouterLink>
         <p class="name ellipsis-2">{{ goods.name }}</p>
-        <p class="desc">{{ goods.desc }}</p>
+        <p class="desc ellipsis-22">{{ goods.desc }}</p>
         <p class="price">&yen;{{ goods.price }}</p>
         <div class="extra">
             <RouterLink to="/">
@@ -15,10 +15,10 @@
     </div>
 </template>
 <script lang="ts" setup>
-defineProps<{ goods: { id: string, name: string, desc: string, price: string, orderNum: number, picture: string } }>()
-//withDefaults(defineProps<{ goods: {picture:string,name:string,price:string,tag:string} }>(), { goods: () => {} })
+//defineProps<{ goods: { id: string, name: string, desc: string, price: string, orderNum: number, picture: string } }>()
+withDefaults(defineProps<{ goods: { id: string, desc: string, picture: string, name: string, price: string, orderNum: number } }>(), { goods: () => { return { id: '', desc: '', picture: '', price: '', orderNum: 0, name: '' } } })
 </script>
-<style scoped lang='less'>
+<style scoped lang="less">
 .goods-item {
     width: 240px;
     height: 300px;
@@ -27,6 +27,7 @@ defineProps<{ goods: { id: string, name: string, desc: string, price: string, or
     overflow: hidden;
     border: 1px solid transparent;
     transition: all 0.5s;
+
     .image {
         display: block;
         width: 160px;
@@ -40,9 +41,15 @@ defineProps<{ goods: { id: string, name: string, desc: string, price: string, or
     p {
         margin-top: 6px;
         font-size: 16px;
+        &.ellipsis-22 {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
         &.name {
             height: 44px;
         }
+
         &.desc {
             color: #666;
             height: 22px;

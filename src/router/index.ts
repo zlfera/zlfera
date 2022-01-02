@@ -4,6 +4,7 @@ const Layout = () => import("@/views/Layout.vue");
 const Home = () => import("@/views/home/Home.vue");
 const Category = () => import("@/views/category/Index.vue");
 const Sub = () => import("@/views/category/Sub.vue");
+//const Goods = () => import("@/views/goods/Index.vue");
 const routes: Array<RouteRecordRaw> = [
     {
         path: "/",
@@ -13,6 +14,7 @@ const routes: Array<RouteRecordRaw> = [
             { path: "/", component: Home },
             { path: "/category/:id", component: Category },
             { path: "/category/sub/:id", component: Sub },
+            // { path: "/product/:id", component: Goods },
         ],
     },
 

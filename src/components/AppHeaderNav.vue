@@ -3,13 +3,8 @@
     <li class="home">
       <RouterLink to="/">首页</RouterLink>
     </li>
-    <li
-      v-for="item in list"
-      :key="item.id"
-      @mouseenter="show(item)"
-      @mouseleave="hide(item)"
-    >
-      <RouterLink to="/">{{ item.name }}</RouterLink>
+    <li v-for="item in list" :key="item.id" @mouseenter="show(item)" @mouseleave="hide(item)">
+      <RouterLink :to="`/category/${item.id}`">{{ item.name }}</RouterLink>
       <div class="layer" :class="{ open: item.open }">
         <ul>
           <li v-for="sub in item.children" :key="sub.id">

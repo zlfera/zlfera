@@ -1,5 +1,5 @@
 <template>
-  <Layout />
+  <RouterView />
   App {{ profile.account }}
   <button @click="setUser">设置用户信息</button>
 </template>
