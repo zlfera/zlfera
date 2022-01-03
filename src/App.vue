@@ -12,6 +12,9 @@ const profile = computed(() => store.state.user.profile);
 const setUser = () => {
   store.dispatch("user/setUser");
 };
+
+
+
 </script>
 
 <style lang="less"></style>
