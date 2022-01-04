@@ -10,7 +10,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import XtxBread from "@/components/librarys/xtx-bread.vue";
-import XtxBreadItem from "@/components/librarys/xtx-bread-item.vue";
+import XtxBread from "@/components/librarys/XtxBread.vue";
+import XtxBreadItem from "@/components/librarys/XtxBreadItem.vue";
 </script>
 <style scope lang="less"></style>

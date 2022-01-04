@@ -1,12 +1,11 @@
 <template>
     <div class="xtx-bread-item">
-        <RouterLink v-if="to" :to="to">
+        <RouterLink :to="to" v-if="to">
             <slot />
         </RouterLink>
         <span v-else>
             <slot />
         </span>
-        <!-- <i class="iconfont icon-angle-right"></i> -->
     </div>
 </template>
 
@@ -36,7 +35,7 @@ import { RouterLink } from 'vue-router';
 
 
 
-const p = withDefaults(defineProps<{ to: string | object }>(), {
+withDefaults(defineProps<{ to: string | object }>(), {
     to: '',
 })
 </script>

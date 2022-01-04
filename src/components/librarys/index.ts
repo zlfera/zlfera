@@ -1,19 +1,25 @@
-import { App } from "vue";
+import { App, Component } from "vue";
 import XtxSkeleton from "./xtx-skeleton.vue";
 import xtxCarousel from "./xtx-carousel.vue";
-import XtxMore from "./xtx-more.vue";
-import XtxBread from "./xtx-bread.vue";
-import xtxBreadItem from "./xtx-bread-item.vue";
+// import XtxMore from "./xtx-more.vue";
+// import XtxBread from "./XtxBread.vue";
+// import xtxBreadItem from "./XtxBreadItem.vue";
 //import defaultImg from "@/assets/images/200.png";
+const importFn = require.context("./", false, /\.vue$/);
 export default {
     install(app: App<Element>) {
         // 在app上进行扩展，app提供 component directive 函数
         // 如果要挂载原型 app.config.globalProperties 方式
         app.component("XtxSkeleton", XtxSkeleton);
         app.component("xtxCarousel", xtxCarousel);
-        app.component("XtxMore", XtxMore);
-        app.component("XtxBread", XtxBread);
-        app.component("XtxBreadItem", xtxBreadItem);
+        // app.component("XtxMore", XtxMore);
+        // app.component("XtxBread", XtxBread);
+        // app.component("XtxBreadItem", xtxBreadItem);
+        importFn.keys().forEach((path: string) => {
+            const component: Component = importFn(path).default;
+            app.component(`${component}`, component);
+            console.log(`${component}`);
+        });
         defineDirective(app);
     },
 };

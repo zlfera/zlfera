@@ -7,12 +7,15 @@
     <zlf />
 </template>
 <script setup lang="tsx">
-import { useSlots, h } from 'vue';
+import { useSlots } from 'vue';
 const items: JSX.Element[] = useSlots().default!()
+//子组件用这种写法
+//插入template组件用函数返回值写法
 const zlfera = (
     < i class='iconfont icon-angle-right' />
 
 )
+
 const dynamicItems: JSX.Element[] = []
 items.forEach((item: JSX.Element, i: number) => {
     dynamicItems.push(item)
@@ -21,14 +24,26 @@ items.forEach((item: JSX.Element, i: number) => {
     }
 })
 
-const zlf = h('div', {
-    class: 'xtx-bread'
-}, dynamicItems)
 
-withDefaults(defineProps<{ parentPath: string | object, parentName: string }>(), {
-    parentPath: '',
-    parentName: '',
+withDefaults(defineProps<{ to: string | object }>(), {
+    to: '',
 })
+// withDefaults(defineProps<{ parentPath: string | object, parentName: string }>(), {
+//     parentPath: '',
+//     parentName: '',
+// })
+//函数返回值写法
+//插入template组件必须这种写法
+const zlf = () =>
+(
+
+    <div class="xtx-bread">
+        {dynamicItems}
+    </div>
+)
+
+
+
 </script>
 <style  lang='less'>
 .xtx-bread {
