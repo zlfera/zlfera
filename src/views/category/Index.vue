@@ -35,21 +35,19 @@ const sliders = ref<[]>([]);
 findBanner(sliders)
 //从vuex获取分类数据
 const store = useStore()
+
 const route = useRoute() as unknown as {
   params: {
     id: string;
   };
 };
+//获取当前分类
 const topCategory = computed(() => {
   let cate = {} as CategoryList;
 
+  //获取当前路由的id,然后在vuex中找到对应的分类数据,然后返回,如果没有找到,返回空对象
+  const item = store.state.category.list.find((item: CategoryList) => item.id === route.params.id);
 
-  const item = store.state.category.list.find(
-    (item: CategoryList) => {
-      return item.id === route.params.id
-    }
-  );
-  console.log(item);
 
   if (item) cate = item
   return cate
