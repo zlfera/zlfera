@@ -14,8 +14,7 @@
             v-for="sub in item.children"
             :key="sub.id"
             :to="`/category/sub/${sub.id}`"
-            >{{ sub.name }}</RouterLink
-          >
+          >{{ sub.name }}</RouterLink>
         </template>
         <span v-else>
           <XtxSkeleton
@@ -50,9 +49,7 @@
           </RouterLink>
         </li>
       </ul>
-      <ul
-        v-if="currentCategory && currentCategory.brands && currentCategory.brands.length"
-      >
+      <ul v-if="currentCategory && currentCategory.brands && currentCategory.brands.length">
         <li
           class="brand"
           v-for="item in currentCategory.brands as Array<{ id: string, picture: string, place: string, name: string, desc: string }>"

@@ -18,7 +18,6 @@ export default {
         importFn.keys().forEach((path: string) => {
             const component: Component = importFn(path).default;
             app.component(`${component}`, component);
-            console.log(`${component}`);
         });
         defineDirective(app);
     },

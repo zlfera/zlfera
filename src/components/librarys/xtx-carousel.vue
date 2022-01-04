@@ -20,10 +20,10 @@
     </a>
     <div class="carousel-indicator">
       <span
-        v-for="(item, i) in props.sliders"
-        :key="i"
-        :class="{ active: index === i }"
-        @click="index = i"
+        v-for="item in props.sliders"
+        :key="item.id"
+        :class="{ active: index === item.id }"
+        @click="index = item.id"
       ></span>
     </div>
   </div>
@@ -59,7 +59,7 @@ watch(
       index.value = 0;
       autoPlayFn();
     }
-    console.log(newValue, oldValue);
+
   },
 
   { immediate: true }
