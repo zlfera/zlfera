@@ -11,10 +11,10 @@
       <div class="sub-list" v-if="topCategory && topCategory.children">
         <h3>全部分类</h3>
         <ul>
-          <li v-for="sub in topCategory.children" :key="sub.id">
+          <li v-for="item in topCategory.children" :key="item.id">
             <a href="javascript:;">
-              <img :src="sub.picture" />
-              <p>{{ sub.name }}</p>
+              <img :src="item.picture" />
+              <p>{{ item.name }}</p>
             </a>
           </li>
         </ul>
@@ -31,6 +31,7 @@ import { findBanner } from "@/api/home";
 import { useStore } from "@/store";
 import { useRoute } from "vue-router";
 import { CategoryList } from "@/store/modules/category/types";
+import request from "@/utils/request";
 const sliders = ref<[]>([]);
 findBanner(sliders)
 //从vuex获取分类数据
@@ -52,8 +53,6 @@ const topCategory = computed(() => {
   if (item) cate = item
   return cate
 });
-
-
 
 
 </script>
