@@ -103,3 +103,17 @@ ul {
         }
     }
 }
+.fade-right-enter-from,
+.fade-right-leave-to {
+    opacity: 0;
+    transform: translate3d(-20px, 0, 0);
+}
+.fade-right-enter-active,
+.fade-right-leave-active {
+    transition: all 1.5s;
+}
+.fade-right-enter-to,
+.fade-right-leave-from {
+    opacity: 1;
+    transform: none;
+}

@@ -32,6 +32,10 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes,
+    scrollBehavior() {
+        //路由滚动行为
+        return { left: 0, top: 0 };
+    },
 });
 
 export default router;

@@ -29,7 +29,7 @@ export default {
                         .replace(/\.\w+$/, "")
                 )
             );
-
+            // 注册组件
             //
             app.component(componentName, component);
         });

@@ -43,7 +43,7 @@
 //         console.log(x);
 //     }
 // }
-"use strict";
+//"use strict";
 // function a(x, y = { m: 111, n: 22 }) {
 //     console.log(this);
 //     var y;
@@ -58,13 +58,20 @@
 //firefox
 //1 找到所有的var 声明 2 如果有参数就在var里面赋值 3 最后找所有的function 声明, 有就覆盖参数数值
 // var 参数 function
-function a(x = 1, y = 2) {
-    debugger;
-    //var x;
-    // y;
+// function a(x = 1) {
+//     debugger;
+//     //var x;
+//     // y;
+//     console.log(x);
+//     function x() {}
 
-    function x() {}
-    var x;
-    console.log(x, y);
-}
-a(5, 8);
+//     var x;
+//     console.log(x);
+// }
+// a(5);
+var a = 1;
+(function a() {
+    a = 2;
+    console.log(a);
+})();
+console.log(a);
