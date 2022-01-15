@@ -4,16 +4,25 @@
     <div class="item">
       <div class="head">品牌：</div>
       <div class="body">
-        <a href="javascript:;" v-for="item in filter.brands" :key="item.id">
-          {{ item.name }}
-        </a>
+        <a
+          :class="{ active: item.id === null }"
+          href="javascript:;"
+          v-for="item in filter.brands"
+          :key="item.id"
+          >{{ item.name }}</a
+        >
       </div>
     </div>
 
     <div class="item" v-for="item in filter.saleProperties" :key="item.id">
       <div class="head">{{ item.name }}</div>
       <div class="body">
-        <a href="javascript:;" v-for="prop in item.properties" :key="prop.id as string">
+        <a
+          :class="{ active: prop.id === null }"
+          href="javascript:;"
+          v-for="prop in item.properties"
+          :key="prop.id as string"
+        >
           {{ prop.name }}
         </a>
       </div>

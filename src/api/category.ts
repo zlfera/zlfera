@@ -28,11 +28,15 @@ export async function findSubCategoryFilter(
     data.result.selectedBrand = null;
     data.result.brands.unshift({ id: null, name: "全部" } as unknown as Brand);
     data.result.saleProperties.forEach((p: SaleProperty) => {
-        p.selectedProp = undefined;
+        p.selectedProp = null;
         p.properties.unshift({ id: null, name: "全部" });
     });
 
     filterLoaded.value = false;
     filter.value = data.result;
-    console.log(filter.value);
+}
+export async function findSubCategoryGoods(
+    params = { page: 10, pagSize: 20, categoryId: "1005000" }
+) {
+    const data = await request("/category/goods/temporary", "post", params);
 }

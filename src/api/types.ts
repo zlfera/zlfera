@@ -48,7 +48,7 @@ export interface SaleProperty {
     id: string;
     name: string;
     properties: Property[];
-    selectedProp: undefined;
+    selectedProp: undefined | null;
 }
 
 export interface Property {
