@@ -35,8 +35,20 @@ export async function findSubCategoryFilter(
     filterLoaded.value = false;
     filter.value = data.result;
 }
-export async function findSubCategoryGoods(
-    params = { page: 10, pagSize: 20, categoryId: "1005000" }
-) {
-    const data = await request("/category/goods/temporary", "post", params);
+// export async function findSubCategoryGoods(
+//     params: unknown,
+//     goodsList: Ref<{}[]>
+// ) {
+//     const data = (await request(
+//         "/category/goods/temporary",
+//         "post",
+//         params
+//     )) as unknown as { result: [] };
+
+//     return data;
+// }
+export async function findSubCategoryGoods(params: unknown) {
+    return request("/category/goods/temporary", "post", params) as unknown as {
+        result: { items: [] };
+    };
 }

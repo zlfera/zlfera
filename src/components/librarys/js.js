@@ -69,9 +69,26 @@
 //     console.log(x);
 // }
 // a(5);
-var a = 1;
-(function a() {
-    a = 2;
-    console.log(a);
-})();
-console.log(a);
+// var a = 1;
+// (function a() {
+//     a = 2;
+//     console.log(a);
+// })();
+// console.log(a);
+function a(x) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(x);
+        }, 5000);
+    });
+}
+async function b() {
+    console.log(789);
+    let x = await a(1);
+    console.log(x + 1);
+    console.log(456);
+
+    console.log(741);
+}
+
+b();

@@ -6,11 +6,15 @@
       <div class="goods-list">
         <SubSort />
         <ul>
-          <li v-for="i in 20" :key="i">
-            <GoodsItem :item="{ id: '', picture: '', price: '', name: '', desc: '' }" />
+          <li v-for="goods in goodsList" :key="goods.id">
+            <GoodsItem :item="goods" />
           </li>
         </ul>
-        <XtxInfiniteLoading :loading="load.loading" :finished="load.finished" />
+        <XtxInfiniteLoading
+          :loading="load.loading"
+          :finished="load.finished"
+          @infinite="getData"
+        />
       </div>
     </div>
   </div>
@@ -20,13 +24,50 @@ import SubBread from "./components/SubBread.vue";
 import SubFilter from "./components/SubFilter.vue";
 import SubSort from "./components/SubSort.vue";
 import GoodsItem from "./components/GoodsItem.vue";
-import { reactive } from "vue";
+import { reactive, ref, watch } from "vue";
 import { findSubCategoryGoods } from "@/api/category";
+
+import { useRoute } from "vue-router";
 const load = reactive({
   loading: false,
   finished: false,
 });
-findSubCategoryGoods();
+const reqParams = {
+  page: 1,
+  pageSize: 20,
+  categoryId: "",
+};
+const goodsList = ref<
+  { id: string; picture: string; price: string; name: string; desc: string }[]
+>([]);
+const route = useRoute();
+const getData = () => {
+  load.loading = true;
+  reqParams.categoryId = route.params.id as string;
+
+  findSubCategoryGoods(reqParams).then(({ result }) => {
+    if (result.items.length) {
+      goodsList.value.push(...result.items);
+      reqParams.page = reqParams.page + 1;
+    } else {
+      load.finished = true;
+    }
+    load.loading = false;
+  });
+  watch(
+    () => route.params.id,
+    (newValue) => {
+      if (newValue && `/category/sub/${newValue}` === route.path) {
+        goodsList.value = [];
+        reqParams.page = 1;
+        console.log(1234567899);
+
+        load.finished = false;
+      }
+    },
+    { immediate: true }
+  );
+};
 </script>
 <style lang="less">
 .goods-list {
