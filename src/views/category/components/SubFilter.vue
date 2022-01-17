@@ -5,7 +5,8 @@
       <div class="head">品牌：</div>
       <div class="body">
         <a
-          :class="{ active: item.id === null }"
+          :class="{ active: item.id === filter.selectedBrand }"
+          @click="(filter.selectedBrand as unknown as string) = item.id"
           href="javascript:;"
           v-for="item in filter.brands"
           :key="item.id"
@@ -18,13 +19,13 @@
       <div class="head">{{ item.name }}</div>
       <div class="body">
         <a
-          :class="{ active: prop.id === null }"
+          :class="{ active: prop.id === item.selectedProp }"
+          @click="item.selectedProp = prop.id"
           href="javascript:;"
           v-for="prop in item.properties"
           :key="prop.id as string"
+          >{{ prop.name }}</a
         >
-          {{ prop.name }}
-        </a>
       </div>
     </div>
   </div>

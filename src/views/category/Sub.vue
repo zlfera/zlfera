@@ -41,6 +41,7 @@ const goodsList = ref<
   { id: string; picture: string; price: string; name: string; desc: string }[]
 >([]);
 const route = useRoute();
+
 const getData = () => {
   load.loading = true;
   reqParams.categoryId = route.params.id as string;
@@ -56,7 +57,9 @@ const getData = () => {
   });
   watch(
     () => route.params.id,
-    (newValue) => {
+    (newValue, oldValue) => {
+      console.log(newValue, oldValue);
+
       if (newValue && `/category/sub/${newValue}` === route.path) {
         goodsList.value = [];
         reqParams.page = 1;
@@ -64,8 +67,7 @@ const getData = () => {
 
         load.finished = false;
       }
-    },
-    { immediate: true }
+    }
   );
 };
 </script>
