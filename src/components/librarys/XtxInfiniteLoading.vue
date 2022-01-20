@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<{ loading: boolean; finished: boolean }>(
   finished: false,
 });
 const emit = defineEmits<{ (event: "infinite"): void }>();
-const container = ref(null);
+const container = ref();
 //
 useIntersectionObserver(
   container,
@@ -30,7 +30,7 @@ useIntersectionObserver(
       }
     }
   },
-  { threshold: 0 }
+  { threshold: 1 }
 );
 </script>
 <style scoped lang="less">

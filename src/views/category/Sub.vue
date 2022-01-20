@@ -2,18 +2,18 @@
   <div class="sub-category">
     <div class="container">
       <SubBread />
-      <SubFilter />
+      <SubFilter @filterChange="filterChange" />
       <div class="goods-list">
-        <SubSort />
+        <SubSort @sortChange="sortChange" />
         <ul>
           <li v-for="goods in goodsList" :key="goods.id">
             <GoodsItem :item="goods" />
           </li>
         </ul>
         <XtxInfiniteLoading
+          @infinite="getData"
           :loading="load.loading"
           :finished="load.finished"
-          @infinite="getData"
         />
       </div>
     </div>
@@ -32,10 +32,10 @@ const load = reactive({
   loading: false,
   finished: false,
 });
-const reqParams = {
+let reqParams = {
   page: 1,
   pageSize: 20,
-  categoryId: "",
+  categoryId: null,
 };
 const goodsList = ref<
   { id: string; picture: string; price: string; name: string; desc: string }[]
@@ -43,32 +43,42 @@ const goodsList = ref<
 const route = useRoute();
 
 const getData = () => {
+  console.log(reqParams);
   load.loading = true;
-  reqParams.categoryId = route.params.id as string;
+  ((reqParams.categoryId as unknown) as string) = route.params.id as string;
 
   findSubCategoryGoods(reqParams).then(({ result }) => {
     if (result.items.length) {
       goodsList.value.push(...result.items);
-      reqParams.page = reqParams.page + 1;
+      reqParams.page++;
     } else {
       load.finished = true;
     }
     load.loading = false;
   });
-  watch(
-    () => route.params.id,
-    (newValue, oldValue) => {
-      console.log(newValue, oldValue);
-
-      if (newValue && `/category/sub/${newValue}` === route.path) {
-        goodsList.value = [];
-        reqParams.page = 1;
-        console.log(1234567899);
-
-        load.finished = false;
-      }
+};
+watch(
+  () => route.params.id,
+  (newValue) => {
+    load.finished = false;
+    if (newValue && `/category/sub/${newValue}` === route.path) {
+      goodsList.value = [];
+      reqParams.page = 1;
     }
-  );
+  }
+  // { immediate: true }
+);
+const sortChange = (sortParams: object) => {
+  load.finished = false;
+  reqParams = { ...reqParams, ...sortParams };
+  goodsList.value = [];
+  reqParams.page = 1;
+};
+const filterChange = (filterParams: object) => {
+  load.finished = false;
+  reqParams = { ...reqParams, ...filterParams };
+  goodsList.value = [];
+  reqParams.page = 1;
 };
 </script>
 <style lang="less">

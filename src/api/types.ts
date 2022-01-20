@@ -13,7 +13,7 @@ export interface Result {
     categories: Category[];
     brands: Brand[];
     saleProperties: SaleProperty[];
-    selectedBrand: null;
+    selectedBrand: null | string;
 }
 
 export interface Brand {
@@ -48,7 +48,7 @@ export interface SaleProperty {
     id: string;
     name: string;
     properties: Property[];
-    selectedProp: undefined | null | string;
+    selectedProp: null | string;
 }
 
 export interface Property {

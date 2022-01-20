@@ -3,8 +3,8 @@
     <div class="sort">
       <a
         href="javascript:;"
-        :class="{ active: sortParams.sortField === '' }"
-        @click="changeSort('')"
+        :class="{ active: sortParams.sortField === null }"
+        @click="changeSort(null)"
         >默认排序</a
       >
       <a
@@ -42,27 +42,36 @@
       </a>
     </div>
     <div class="check">
-      <XtxCheckBox v-model:a="isCheckedA">仅显示有货商品</XtxCheckBox>
+      <XtxCheckBox @change="changeCheck" v-model="sortParams.inventory"
+        >仅显示有货商品{{ sortParams.inventory }}</XtxCheckBox
+      >
 
-      <XtxCheckBox v-model:a="isCheckedB">仅显示特惠商品</XtxCheckBox>
+      <XtxCheckBox @change="changeCheck" v-model="sortParams.onlyDiscount"
+        >仅显示特惠商品{{ sortParams.onlyDiscount }}</XtxCheckBox
+      >
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
-const isCheckedA = ref();
-const isCheckedB = ref();
-const sortParams = reactive({
+import { reactive } from "vue";
+
+const sortParams = reactive<{
+  inventory: boolean;
+  onlyDiscount: boolean;
+  sortField: null | string;
+  sortMethod: null | string;
+}>({
   inventory: false,
   onlyDiscount: false,
-  sortField: "",
-  sortMethod: "",
+  sortField: null,
+  sortMethod: null,
 });
-const changeSort = (sortField: string) => {
+const emit = defineEmits<{ (event: "sortChange", obj: object): void }>();
+const changeSort = (sortField: string | null) => {
   if (sortField === "price") {
     sortParams.sortField = sortField;
-    if (sortParams.sortMethod === "") {
+    if (sortParams.sortMethod === null) {
       sortParams.sortMethod = "desc";
     } else {
       sortParams.sortMethod = sortParams.sortMethod === "desc" ? "asc" : "desc";
@@ -70,8 +79,12 @@ const changeSort = (sortField: string) => {
   } else {
     if (sortField === sortParams.sortField) return;
     sortParams.sortField = sortField;
-    sortParams.sortMethod = "";
+    sortParams.sortMethod = null;
   }
+  emit("sortChange", sortParams);
+};
+const changeCheck = () => {
+  emit("sortChange", sortParams);
 };
 </script>
 

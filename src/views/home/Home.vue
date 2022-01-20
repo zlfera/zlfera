@@ -5,11 +5,11 @@
         <!-- 左侧分类 -->
         <HomeCategory />
         <HomeBanner />
-        <HomeNew />
+        <HomeNew title subTitle />
         <HomeHot />
         <HomeBrand />
         <HomeProduct />
-        <HomeSpecial />
+        <HomeSpecial title subTitle />
       </div>
     </div>
   </div>

@@ -1,4 +1,5 @@
 import request from "@/utils/request";
+import { AxiosPromise } from "axios";
 import { Ref } from "vue";
 import { Brand, Result, SaleProperty, Zlfera } from "./types";
 //获取首页头部信息
@@ -19,8 +20,8 @@ export async function findTopCategory(id: string, category: Ref<{}[]>) {
 }
 export async function findSubCategoryFilter(
     id: string,
-    filter: Ref<Result>,
-    filterLoaded: { value: boolean }
+    filter: Ref<Result>
+    //filterLoaded: Ref<boolean>
 ) {
     const data = (await request("/category/sub/filter", "get", {
         id,
@@ -32,7 +33,7 @@ export async function findSubCategoryFilter(
         p.properties.unshift({ id: null, name: "全部" });
     });
 
-    filterLoaded.value = false;
+    //filterLoaded.value = false;
     filter.value = data.result;
 }
 // export async function findSubCategoryGoods(

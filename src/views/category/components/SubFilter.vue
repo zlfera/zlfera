@@ -6,7 +6,7 @@
       <div class="body">
         <a
           :class="{ active: item.id === filter.selectedBrand }"
-          @click="(filter.selectedBrand as unknown as string) = item.id"
+          @click="changeBrand(item.id)"
           href="javascript:;"
           v-for="item in filter.brands"
           :key="item.id"
@@ -20,7 +20,7 @@
       <div class="body">
         <a
           :class="{ active: prop.id === item.selectedProp }"
-          @click="item.selectedProp = prop.id"
+          @click="changeProp(item, prop.id as string)"
           href="javascript:;"
           v-for="prop in item.properties"
           :key="prop.id as string"
@@ -32,7 +32,7 @@
 </template>
 <script setup lang="ts">
 import { findSubCategoryFilter } from "@/api/category";
-import { Result } from "@/api/types";
+import { Result, SaleProperty } from "@/api/types";
 import { Ref, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 
@@ -40,17 +40,45 @@ const route = useRoute();
 const filter = (ref<{ brands: { id: string; name: string }[] }>({
   brands: [],
 }) as unknown) as Ref<Result>;
-const filterLoading = ref(false);
+//const filterLoading = ref(false);
 watch(
   () => route.params.id,
-  (newValue, oldValue) => {
+  (newValue) => {
     if (newValue && route.path === "/category/sub/" + newValue) {
-      filterLoading.value = true;
-      newValue && findSubCategoryFilter(route.params.id as string, filter, filterLoading);
+      // filterLoading.value = true;
+      newValue && findSubCategoryFilter(route.params.id as string, filter); //filterLoading
     }
   },
   { immediate: true }
 );
+const getFilterParams = () => {
+  const obj: {
+    brandId: string | null;
+    attrs: { groupName: string; propertyName: string }[] | null;
+  } = { brandId: "", attrs: [] };
+  obj.brandId = filter.value.selectedBrand;
+  filter.value.saleProperties.forEach((item) => {
+    if (item.selectedProp) {
+      const prop = item.properties.find((prop) => prop.id === item.selectedProp);
+      obj.attrs!.push({ groupName: item.name, propertyName: prop!.name });
+    }
+  });
+  if (obj.attrs?.length === 0) {
+    obj.attrs = null;
+  }
+  return obj;
+};
+const emit = defineEmits<{ (event: "filterChange", obj: object): void }>();
+const changeBrand = (id: string) => {
+  if (filter.value.selectedBrand === id) return;
+  filter.value.selectedBrand = id;
+  emit("filterChange", getFilterParams());
+};
+const changeProp = (item: SaleProperty, id: string) => {
+  if (item.selectedProp === id) return;
+  item.selectedProp = id;
+  emit("filterChange", getFilterParams());
+};
 </script>
 <style scoped lang="less">
 // 筛选区
