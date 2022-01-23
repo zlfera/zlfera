@@ -18,7 +18,7 @@
 </template>
 <script lang="ts" setup>
 import { useMouseInElement } from "@vueuse/core";
-import { reactive, ref } from "vue";
+import { reactive, ref, watch } from "vue";
 
 defineProps<{ images: string[] }>();
 const currIndex = ref<number>(0);
@@ -27,13 +27,27 @@ const show = ref(false);
 
 const { elementX, elementY, isOutside } = useMouseInElement(target);
 const largePosition = reactive({
-  backgroundPositionX: 0,
-  backgroundPositionY: 0,
+  backgroundPositionX: "0",
+  backgroundPositionY: "0",
 });
-const layerPosition = reactive({ left: 0, top: 0 });
-if (elementX.value < 100) layerPosition.left = 0;
-else if (elementX.value > 300) layerPosition.left = 200;
-else layerPosition.left = elementX.value - 100;
+const layerPosition = reactive({ left: "0", top: "0" });
+
+watch([elementX, elementY, isOutside], () => {
+  show.value = !isOutside.value;
+  const position = { x: 0, y: 0 };
+  if (elementX.value < 100) position.x = 0;
+  else if (elementX.value > 300) position.x = 200;
+  else position.x = elementX.value - 100;
+
+  if (elementY.value < 100) position.y = 0;
+  else if (elementY.value > 300) position.y = 200;
+  else position.y = elementY.value - 100;
+
+  layerPosition.left = position.x + "px";
+  layerPosition.top = position.y + "px";
+  largePosition.backgroundPositionX = -2 * position.x + "px";
+  largePosition.backgroundPositionY = -2 * position.y + "px";
+});
 </script>
 <style scoped lang="less">
 .goods-image {
