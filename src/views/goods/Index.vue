@@ -5,21 +5,24 @@
 
       <XtxBread>
         <XtxBreadItem to="/">首页</XtxBreadItem>
-        <XtxBreadItem :to="`/category/${goods.categories[1].id}`">
-          {{ goods.categories[1].name }}
-        </XtxBreadItem>
-
-        <XtxBreadItem :to="`/category/sub/${goods.categories[0].id}`">{{
-          goods.categories[0].name
+        <XtxBreadItem :to="`/category/${goods.categories[1].id}`">{{
+          goods.categories[1].name
         }}</XtxBreadItem>
+
+        <XtxBreadItem :to="`/category/sub/${goods.categories[0].id}`">
+          {{ goods.categories[0].name }}
+        </XtxBreadItem>
         <XtxBreadItem to="/">{{ goods.name }}</XtxBreadItem>
       </XtxBread>
       <!-- 商品信息 -->
       <div class="goods-info">
         <div class="media">
           <GoodsImage :images="goods.mainPictures" />
+          <GoodsSales />
         </div>
-        <div class="spec"></div>
+        <div class="spec">
+          <GoodsName :goods="goods" />
+        </div>
       </div>
       <!-- 商品推荐 -->
       <GoodsRelevant />
@@ -42,14 +45,22 @@
 import { findGoods } from "@/api/product";
 import { Goods } from "@/api/productTypes";
 import GoodsImage from "./GoodsImage.vue";
-import { Ref, ref } from "vue";
+import { Ref, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import GoodsRelevant from "./components/GoodsRelevant.vue";
+import GoodsSales from "./components/GoodsSales.vue";
+import GoodsName from "./components/GoodsName.vue";
+import XtxCity from "@/components/librarys/XtxCity.vue";
 const goods: Ref<Goods> = ref<Goods>() as Ref<Goods>;
 
 const route = useRoute();
-
-findGoods(route.params.id as string, goods);
+watch(
+  () => route.params.id,
+  () => {
+    findGoods(route.params.id as string, goods);
+  },
+  { immediate: true }
+);
 </script>
 
 <style scoped lang="less">
