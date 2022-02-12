@@ -1,14 +1,20 @@
 <template>
   <div class="xtx-city" ref="target" @mouseleave="toggle">
     <div class="select" @click="toggle" @mouseenter="toggle" :class="{ active }">
-      <span class="placeholder">请选择配送地址</span>
-      <span class="value"></span>
+      <span v-if="!fullLocation" class="placeholder">请选择配送地址</span>
+      <span v-else class="value">{{ fullLocation }}</span>
       <i class="iconfont icon-angle-down"></i>
     </div>
     <div class="option" v-if="visible">
       <div v-if="loading" class="loading"></div>
       <template v-else>
-        <span class="ellipsis" v-for="i in currList" :key="i.code">{{ i.name }}</span>
+        <span
+          class="ellipsis"
+          @click="changeCity(i)"
+          v-for="i in currList"
+          :key="i.code"
+          >{{ i.name }}</span
+        >
       </template>
     </div>
   </div>
@@ -16,14 +22,17 @@
 <script lang="ts" setup>
 import { onClickOutside } from "@vueuse/core";
 import axios from "axios";
-import { computed, Ref, ref } from "vue";
+import { computed, reactive, Ref, ref } from "vue";
 export interface Data {
   code: string;
   level: number;
   name: string;
   areaList?: Data[];
 }
-const cityData: Ref<Data> = ref((null as unknown) as Data);
+withDefaults(defineProps<{ fullLocation: string }>(), {
+  fullLocation: "",
+});
+let cityData: Ref<Data[]> = ref((null as unknown) as Data[]);
 const active = ref(false);
 const target = ref(null);
 const loading = ref(false);
@@ -34,10 +43,19 @@ onClickOutside(target, () => {
 const openDialog = () => {
   visible.value = true;
   active.value = true;
-  getCityData().then((data: Data) => {
+  getCityData().then((data: Data[]) => {
     cityData.value = data;
     loading.value = false;
   });
+};
+const openDialogs = async () => {
+  visible.value = true;
+  active.value = true;
+  const data = await getCityDatas();
+
+  cityData.value = data;
+
+  loading.value = false;
 };
 const closeDialog = () => {
   active.value = false;
@@ -47,7 +65,7 @@ const toggle = () => {
   if (active.value) {
     closeDialog();
   } else {
-    openDialog();
+    openDialogs();
   }
 };
 const currList = computed(() => {
@@ -55,16 +73,17 @@ const currList = computed(() => {
   // TODO 根据点击的省份城市获取对应的列表
   return currList;
 });
+const windows = (window as unknown) as { cityData: Data[] };
 const getCityData = () => {
-  return new Promise((resolve, reject) => {
-    if (window.cityData) {
-      resolve(window.cityData);
+  return new Promise((resolve: (value: Data[]) => void, reject) => {
+    if (windows.cityData) {
+      resolve(windows.cityData);
     } else {
       const url =
         "https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/area.json";
       axios.get(url).then((res) => {
-        window.cityData = res.data;
-        resolve(window.cityData);
+        windows.cityData = res.data;
+        resolve(windows.cityData);
       });
     }
   });
@@ -74,13 +93,49 @@ const getCityData = () => {
 // computed(() => {
 //   getCityData(cityData);
 // });
-// const getCityData = async (cityData: Ref<[]>) => {
-//   const res = await axios.get(
-//     "https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/area.json"
-//   );
-//   cityData.value = res.data;
-//   loading.value = false;
-// };
+const getCityDatas = async () => {
+  if (!windows.cityData) {
+    const res = await axios.get(
+      "https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/area.json"
+    );
+    windows.cityData = res.data;
+    console.log(res.data);
+  }
+  return windows.cityData;
+};
+const addressData = reactive({
+  provinceCode: "",
+  provinceName: "",
+  cityCode: "",
+  cityName: "",
+  countyCode: "",
+  countyName: "",
+  fullLocation: "",
+});
+const emit = defineEmits<{ (event: "changeCites", fullLocation: string): void }>();
+const changeCity = (i: Data) => {
+  cityData.value = i.areaList!;
+
+  if (i.level === 0) {
+    addressData.provinceCode = i.code;
+
+    addressData.provinceName = i.name;
+  }
+  if (i.level === 1) {
+    addressData.cityCode = i.code;
+    addressData.cityName = i.name;
+  }
+  if (i.level === 2) {
+    addressData.countyCode = i.code;
+    addressData.countyName = i.name;
+
+    addressData.fullLocation =
+      addressData.provinceName + addressData.cityName + addressData.countyName;
+
+    closeDialog();
+    emit("changeCites", addressData.fullLocation);
+  }
+};
 </script>
 <style scoped lang="less">
 .xtx-city {

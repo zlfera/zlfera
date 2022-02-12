@@ -14,7 +14,7 @@
       <dt>配送</dt>
       <dd>
         至
-        <XtxCity />
+        <XtxCity @changeCites="changeCity" :fullLocation="fullLocations" />
       </dd>
     </dl>
     <dl>
@@ -30,8 +30,13 @@
 </template>
 <script lang="ts" setup>
 import { Goods } from "@/api/productTypes";
+import { ref } from "vue";
 
 defineProps<{ goods: Goods }>();
+const fullLocations = ref("");
+const changeCity = (fullLocation: string) => {
+  fullLocations.value = fullLocation;
+};
 </script>
 <style lang="less" scoped>
 .g-name {
