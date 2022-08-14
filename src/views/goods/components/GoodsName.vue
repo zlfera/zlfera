@@ -31,8 +31,9 @@
 <script lang="ts" setup>
 import { Goods } from "@/api/productTypes";
 import { ref } from "vue";
+import GoodsImageVue from "../GoodsImage.vue";
 
-defineProps<{ goods: Goods }>();
+const props = defineProps<{ goods: Goods }>();
 const fullLocations = ref("");
 const changeCity = (fullLocation: string) => {
   fullLocations.value = fullLocation;

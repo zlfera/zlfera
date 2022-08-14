@@ -56,6 +56,9 @@ const openDialogs = async () => {
   cityData.value = data;
 
   loading.value = false;
+  for (const key in addressData) {
+    addressData[key] = "";
+  }
 };
 const closeDialog = () => {
   active.value = false;
@@ -104,13 +107,13 @@ const getCityDatas = async () => {
   return windows.cityData;
 };
 const addressData = reactive({
-  provinceCode: "",
-  provinceName: "",
-  cityCode: "",
-  cityName: "",
-  countyCode: "",
-  countyName: "",
-  fullLocation: "",
+  'provinceCode': "",
+  'provinceName': "",
+  'cityCode': "",
+  'cityName': "",
+  'countyCode': "",
+  'countyName': "",
+  'fullLocation': "",
 });
 const emit = defineEmits<{ (event: "changeCites", fullLocation: string): void }>();
 const changeCity = (i: Data) => {
